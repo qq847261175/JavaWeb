@@ -1,0 +1,58 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"	prefix="c" %>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>My JSP 'selectcourse.jsp' starting page</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+
+  </head>
+  
+  <body>
+  <h1 style="text-align: center;">选课</h1>
+    ${Student.name}<br>
+   	 
+   	 <table style="text-align: center" border="1" width="100%">
+	<tr>
+	<th>课程编号<th/>
+	<th>课程名称<th/>
+	<th>课程学分<th/>
+	<th>课程选择<th/>
+	<tr/>
+   	 <c:forEach items="${ selectingcourselist}" var="course">
+	<tr>   	 
+   		<td>	 
+		${course.id}    	 
+   	 	<td/>
+   	 	<td>
+   	 	${course.name} 
+   	 	<td/>
+   	 	<td>
+   	 	${course.credit} 
+   	 	<td/>
+   	 	<td>
+   	 	<a href="<%=basePath %>CourseCheckIn?courseid=${course.id} ">选课</a>
+   	 	<td/>
+   	 <tr/>
+   	 </c:forEach>
+   	 </table> 
+   	 <c:if test="${result==false}">
+   	 	只能选择15分哦
+   	 </c:if>
+  </body>
+</html>

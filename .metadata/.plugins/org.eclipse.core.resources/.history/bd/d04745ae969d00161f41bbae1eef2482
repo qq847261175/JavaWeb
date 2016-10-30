@@ -1,0 +1,13 @@
+package qq.zh.dao;
+
+import qq.zh.domain.Student;
+
+
+public class StudentDao {
+
+	public Student findUserNameAndPsw(String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

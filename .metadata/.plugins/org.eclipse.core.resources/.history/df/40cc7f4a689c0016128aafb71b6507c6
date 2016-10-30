@@ -1,0 +1,12 @@
+<html>
+<head>
+<head/>
+<body>
+<h1>µÇÂ¼<h1/>
+<form action="loginServlet"  method="post">
+ÓÃ»§Ãû<input type="text" name="userName"/>
+ÃÜÂë   <input type=¡±password¡± name="password"/>
+<input type="submit" value="µÇÂ¼"/>
+<form/>
+<body/>
+<html/>

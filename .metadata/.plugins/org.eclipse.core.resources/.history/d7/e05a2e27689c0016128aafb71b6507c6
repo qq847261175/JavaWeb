@@ -1,0 +1,10 @@
+<html>
+<head>
+<head/>
+<body>
+<form  method="get"  action="welcome">
+请输入用户名<input type="text"  name="userName"/><br/>
+<input type="submit" value="提交到welcome"/>
+<form/>
+<a href="http://pc-20160824thhq:8080/Servlet_0010_FirstServlet/outputinfoservlet">输出reques头的信息</a>
+<body/>

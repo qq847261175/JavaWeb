@@ -1,0 +1,76 @@
+package qq.zh.dao;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp.BasicDataSourceFactory;
+import org.apache.commons.dbutils.DbUtils;
+
+import qq.zh.domain.Course;
+import qq.zh.domain.Student;
+
+public class CourseDao2 {
+	
+	static  private   DataSource source=null;
+	static {
+		try {
+			Properties properties=new Properties();
+			properties.load(new FileReader("dbcp.properties"));
+			BasicDataSourceFactory factory =new BasicDataSourceFactory();
+			source=factory.createDataSource(properties);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public List<Course> findSelectedCourseById(Student student) {
+		// TODO Auto-generated method stub
+		List<Course> list=new ArrayList<Course>();
+		String id=student.getId();
+		ResultSet result=null;
+		PreparedStatement statement=null;
+		Connection connection=null;
+		try {
+			connection=source.getConnection();
+			String sql="select * from t_student_course , t_course where  t_student_course.StudentId=? and t_student_course.courseid=t_course.id";
+			statement=connection.prepareStatement(sql);
+			statement.setString(1, id);
+			result=statement.executeQuery();
+			while(result.next()){
+				Course course= new Course();
+				course.setId(result.getString(2));
+//				course.setCredit(Integer.parseInt(result.getString(4)));
+				course.setCredit(result.getInt(5));
+				course.setName(result.getString(4));
+				list.add(course);
+			}
+			
+			return list;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally{
+				DbUtils.closeQuietly(connection, statement, result);
+		}
+		return null;
+	}
+}

@@ -1,0 +1,19 @@
+package qq.zh.dao;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp.BasicDataSourceFactory;
+
+public class CourseDao3 {
+
+	static private DataSource  source=null;
+	static{
+		BasicDataSourceFactory factory= new BasicDataSourceFactory();
+		source=factory.createDataSource(new Properties().load(new FileReader("dbcp.properties")));
+	}
+
+}

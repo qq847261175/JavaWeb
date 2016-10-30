@@ -1,0 +1,58 @@
+package zh.qq;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
+
+public class LoginServlet extends HttpServlet {
+
+	private String userName="qq847261175";
+	private String password="zh847261175";
+	@Override
+	public void init() throws ServletException {
+		// TODO Auto-generated method stub
+		super.init();
+	}
+
+	/**
+	 * The doPost method of the servlet. <br>
+	 *
+	 * This method is called when a form has its tag value method equals to post.
+	 * 
+	 * @param request the request send by the client to the server
+	 * @param response the response send by the server to the client
+	 * @throws ServletException if an error occurred
+	 * @throws IOException if an error occurred
+	 */
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		ServletContext context = this.getServletContext();
+		Integer count=null;
+		synchronized (context) {
+			 count = (Integer)context.getAttribute("counter");
+			int i=1;
+			count=((count==null)?i:++count);
+			context.setAttribute("counter", count);
+		}
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		String userName=(String) request.getAttribute("userName");
+		String password=(String)request.getAttribute("password");
+		if (this.userName.equals(userName)&&this.password.equals(password)) {
+			response.sendRedirect("success.html");
+		}
+		else {
+			response.sendRedirect("default.html");
+		}
+		System.out.println(context.getAttribute("counter"));
+	}
+	
+
+}

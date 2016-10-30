@@ -1,0 +1,29 @@
+package qq.zh.dao;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
+public class CourseDao2 {
+	
+	static  private   DataSource source=null;
+	{
+		try {
+			Properties properties=new Properties();
+			properties.load(new FileReader("dbcp.properties"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public CourseDao2(){
+		
+	
+	}
+}

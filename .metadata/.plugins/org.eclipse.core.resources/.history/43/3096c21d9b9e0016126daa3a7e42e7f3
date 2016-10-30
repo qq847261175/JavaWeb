@@ -1,0 +1,195 @@
+package qq.zh.dao;
+
+import java.io.FileWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp.BasicDataSourceFactory;
+
+import qq.zh.domain.Course;
+import qq.zh.domain.Student;
+
+public class CourseDao {
+	
+	private Connection connection=null;
+	private ResultSet result=null;
+	private PreparedStatement statement=null;
+	public CourseDao(){
+		
+		Properties properties=new Properties();
+		properties.load0(new FileWriter("dbcp.properties"));
+		BasicDataSourceFactory factory=new  BasicDataSourceFactory();
+		DataSource source=factory.createDataSource(arg0)
+	}
+	public List<Course> findSelectedCourseById(Student student) {
+		// TODO Auto-generated method stub
+		List<Course> list=new ArrayList<Course>();
+		String id=student.getId();
+		try {
+			connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","root","");
+			String sql="select * from t_student_course , t_course where  t_student_course.StudentId=? and t_student_course.courseid=t_course.id";
+			statement=connection.prepareStatement(sql);
+			statement.setString(1, id);
+			result=statement.executeQuery();
+			while(result.next()){
+				Course course= new Course();
+				course.setId(result.getString(2));
+//				course.setCredit(Integer.parseInt(result.getString(4)));
+				course.setCredit(result.getInt(5));
+				course.setName(result.getString(4));
+				list.add(course);
+			}
+			
+			return list;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally{
+			try {
+				result.close();
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	public List<Course> selectingCourseByStuId(Student stu) {
+		System.out.println("in dao");
+		List<Course> list=new ArrayList<Course>();
+		try {
+			connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","root","");
+			System.err.println("connet");
+			String sql="select c.* from t_course as c where not exists" +
+					"( select 1 from " +
+					"(select * from t_student_course , t_course as c" +
+					" where  t_student_course.StudentId=? and t_student_course.courseid=c.id) as b" +
+					"  where "+"c.name=b.name);";
+			statement=connection.prepareStatement(sql);
+			statement.setString(1, stu.getId());
+			result=statement.executeQuery();
+			System.err.println(result);
+			while(result.next()){
+				Course course=new Course();
+				course.setCredit(result.getInt(3));
+				course.setId(result.getString(1));
+				course.setName(result.getString(2));
+				list.add(course);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		finally{
+			try {
+				if (result!=null) {
+					result.close();
+				}
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return null;
+	}
+	public boolean courseCheckIn(Student stu, String courseid) {
+		List<Course> list=new ArrayList<Course>();
+		try {
+			connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","root","");
+			String sql="insert into t_student_course (studentid,courseid) values(?,?);";
+			statement=connection.prepareStatement(sql);
+			
+			statement.setString(1, stu.getId());
+			statement.setString(2, courseid);
+			
+			int i=statement.executeUpdate();
+			if (i!=0) {
+				return true;
+			}
+			else {
+				throw new RuntimeException("²åÈë³ö´í");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		finally{
+			try {
+				if (result!=null) {
+					result.close();
+				}
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return false;
+	}
+	public int getCreditByCourseId(String courseid) {
+		// TODO Auto-generated method stub
+		String sql = "select * from t_course where id=?";
+		try {
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/student","root","");
+			statement  =connection.prepareStatement(sql);
+			statement.setString(1, courseid);
+			result=statement.executeQuery();
+			while(result.next()){
+				return result.getInt(3);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally{
+			if (result!=null) {
+				try {
+					result.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (statement!=null) {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (connection!=null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		}
+		return 0;
+		
+	}
+
+
+}

@@ -1,0 +1,64 @@
+package qq.zh.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import qq.zh.domain.Student;
+
+
+public class StudentDao {
+
+	private Connection connection=null;
+	private ResultSet result=null;
+	public StudentDao(){
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public Student findUserNameAndPsw(String ID, String password) {
+		PreparedStatement statement=null;
+		try {
+			connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","root","");
+			String sql="select * from t_student where ID=? and password=?";
+			 statement=connection.prepareStatement(sql);
+			statement.setString(1, ID);
+			statement.setString(2, password);
+			result=statement.executeQuery();
+			while(result.next()){
+				Student stu=new Student();
+				stu.setId(ID);
+				stu.setPassword(password);
+				stu.setDepartment(result.getString("department"));
+				stu.setName(result.getString("name"));
+				stu.setSex(result.getString("sex").charAt(0));
+				stu.setAge(result.getInt("age"));
+				System.out.println(stu.getId());
+				return stu;
+			}
+			return null;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally{
+			if (statement==null) {
+				try {
+					result.close();
+					statement.close();
+					connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+	}
+}

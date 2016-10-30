@@ -1,0 +1,26 @@
+package qq.zh.dao;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+
+import qq.zh.domain.Student;
+
+
+public class StudentDao {
+
+	private Connection connection=null;
+	private ResultSet result=null;
+	StudentDao(){
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public Student findUserNameAndPsw(String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

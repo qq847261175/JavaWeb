@@ -1,0 +1,9 @@
+<html>
+<head>
+<head/>
+<body>
+<form  method=”get”  action=”welcome”>
+请输入用户名<input type=”text” /><br/>
+<input type=”submit” value=”提交到welcome”/>
+<form/>
+<body/>

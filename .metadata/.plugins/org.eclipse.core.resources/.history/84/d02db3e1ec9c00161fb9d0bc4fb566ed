@@ -1,0 +1,12 @@
+<head>
+
+<body>
+<form action="CreateTableServlet" method="post">
+<input type="submit" value="createTable"/><br/>
+</form>
+<form action="AddServlet" method="post">
+<input type="submit" value="createTable"/><br/>
+</form>
+</body>
+
+</head>

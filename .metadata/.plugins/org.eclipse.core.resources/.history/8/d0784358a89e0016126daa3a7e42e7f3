@@ -1,0 +1,9 @@
+package snippet;
+
+public class Snippet {
+	public static void main(String[] args) {
+		request.getSession().setAttribute("selectedcourse", list);
+			request.getRequestDispatcher("Web/ListCourse.jsp").forward(request, response);
+	}
+}
+

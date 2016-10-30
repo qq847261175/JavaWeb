@@ -1,0 +1,12 @@
+<html>
+<head>
+<head/>
+<body>
+<h1>ตวยผ<h1/><br/>
+<form action="loginServlet"  method="post">
+ำรปงร๛<input type="text" name="userName"/><br/>
+รÜย๋   <input type="password" name="password"/><br/>
+<input type="submit" value="ตวยผ"/>
+<form/>
+<body/>
+<html/>

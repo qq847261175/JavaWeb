@@ -1,0 +1,78 @@
+package qq.zh.dao;
+
+import java.io.FileReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp.BasicDataSourceFactory;
+
+import qq.zh.domain.Student;
+
+
+public class StudentDao {
+
+	static private DataSource source;
+	static{
+		BasicDataSourceFactory factory = new BasicDataSourceFactory();
+		Properties properties = new Properties();
+		properties.load(new FileReader( StudentDao.class.getClassLoader().getResource("dbcp.properties").getPath()));
+		factory.createDataSource(properties);
+		source=
+	}
+	public StudentDao(){
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public Student findUserNameAndPsw(String id, String password) {
+		PreparedStatement statement=null;
+		try {
+			connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/student","root","");
+			String sql="select * from t_student where id=? and password=?";
+			 statement=connection.prepareStatement(sql);
+			 System.out.println("set paramter");
+			statement.setString(1, id);
+			statement.setString(2, password);
+			System.err.println("paramter");
+			result=statement.executeQuery();
+			while(result.next()){
+				Student stu=new Student();
+				stu.setId(id);
+				stu.setPassword(password);
+				stu.setDepartment(result.getString("department"));
+				stu.setName(result.getString("name"));
+				stu.setSex(result.getString("sex").charAt(0));
+				stu.setAge(result.getInt("age"));
+				System.out.println(stu.getId());
+				return stu;
+			}
+			return null;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally{
+			if (statement==null) {
+				try {
+					result.close();
+					statement.close();
+					connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+	}
+}

@@ -1,0 +1,36 @@
+package qq.zh;
+
+
+import java.sql.DriverManager;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+
+public class CreateTableServlet extends HttpServlet {
+
+	private String url;
+	private String password;
+	private String username;
+	/**
+	 * Destruction of the servlet. <br>
+	 */
+	public void destroy() {
+		super.destroy(); // Just puts "destroy" string in log
+		// Put your code here
+	}
+
+	/**
+	 * Initialization of the servlet. <br>
+	 *
+	 * @throws ServletException if an error occurs
+	 */
+	public void init() throws ServletException {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

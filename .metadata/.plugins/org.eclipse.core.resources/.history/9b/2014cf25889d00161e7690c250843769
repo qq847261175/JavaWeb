@@ -1,0 +1,5 @@
+package qq.zh.service;
+
+public interface UserService {
+
+}

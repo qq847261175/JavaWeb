@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Jdbc_0011_增删该查">
+        <property name="context-root" value="/Jdbc_0011_增删该查"/>
+    </wb-module>
+</project-modules>

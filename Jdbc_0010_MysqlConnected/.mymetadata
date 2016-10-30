@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="Jdbc_0010_MysqlConnected"
+  id="myeclipse.1477639938640"
+  context-root="/Jdbc_0010_MysqlConnected"
+  j2ee-spec="5.0"
+  archive="Jdbc_0010_MysqlConnected.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

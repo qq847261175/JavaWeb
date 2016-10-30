@@ -1,0 +1,8 @@
+package zh.qq;
+
+
+import javax.servlet.http.HttpServlet;
+
+public class Login2 extends HttpServlet {
+
+}

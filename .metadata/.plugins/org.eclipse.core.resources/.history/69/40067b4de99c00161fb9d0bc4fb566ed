@@ -1,0 +1,13 @@
+<head>
+
+<body>
+<form action="CreateTableServlet" method="post">
+<input type="submit" value="createTable"/><br/>
+
+</form>
+<form action="CreateTableServlet" method="post">
+<input type="submit" value="query" name="query"/>
+</form>
+</body>
+
+</head>

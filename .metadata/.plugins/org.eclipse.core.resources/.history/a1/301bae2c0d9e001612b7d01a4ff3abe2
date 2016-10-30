@@ -1,0 +1,20 @@
+package qq.zh.service;
+
+import java.util.List;
+
+import qq.zh.dao.CourseDao;
+import qq.zh.domain.Course;
+import qq.zh.domain.Student;
+
+public class CourseService {
+
+	private CourseDao dao= new CourseDao();
+	public List<Course> findSelectedCourseListById(String id) {
+		// TODO Auto-generated method stub
+		List<Course>list=dao.findSelectedCourseById(id);
+		return list;
+	}
+	public List<Course> selectingCourse(Student stu) {
+		return dao.selectingCourseByStuId(stu);
+	}
+}
