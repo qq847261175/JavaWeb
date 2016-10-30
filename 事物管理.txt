@@ -1,0 +1,33 @@
+1 两个sql语句为一个原子操作：事物
+	mysql中的命令	
+	startTransaction  开启逻辑上一组操作，要么同时完成，要么同时回滚  
+	-commit &-rollback
+	JDBC中的事物管理：
+	1 connetion.setautoCommit(false)；
+	2 connection.commit();
+	3 conn.rollback();
+	4 conn.savepoint();
+	5 conn.roback(savepoint)
+	6 conn.commit（）;
+2 事物的四大特性：数据库设计
+	原子性：不可分割的整体 A
+	一致性：事物执行前后均是完整状态C
+	隔离性：并发状态隔离I
+	持久性：一旦对数据库commit()以后无法修改D
+3 一个数据修改 一个数据读取，引发的问题
+	脏读：一个事物读取到另一个未提交的事物(隔离性)
+	不可重复读：一个事物重复读另一个事物提交的事物
+	幻读：整表查询（插入）
+	数据库为了设计：隔离性 产生了-对应的四大业务场景
+	read uncommited
+	read commited
+	read repeateable
+	serializable --单线程
+command：setTransaction isolation level -read  commit
+        read uncommit:脏读：及事物内都直接修改sql表
+	read commit：重复读：事物结果直接修改sql表
+	read repeatable:不可重复读：更新事物结果不能修改到查询事物表单
+	serializable：一个事物独占一个数据库表单
+4 数据库锁：
+共享锁：
+排它锁：
